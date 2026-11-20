@@ -809,7 +809,7 @@ dt {
 }
 
 .skill-code {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
@@ -823,6 +823,7 @@ dt {
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1;
+  text-align: center;
   white-space: nowrap;
   color: var(--accent-cyan);
 }
