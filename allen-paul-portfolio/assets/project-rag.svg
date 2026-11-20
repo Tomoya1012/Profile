@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" fill="none">
+  <rect width="480" height="240" fill="#0B1322"/>
+  <!-- Left Node: Knowledge Corpus -->
+  <rect x="26" y="44" width="112" height="152" rx="10" fill="#101D32" stroke="#438DFF" stroke-opacity="0.4"/>
+  <rect x="42" y="64" width="64" height="7" rx="3.5" fill="#54D6E8"/>
+  <rect x="42" y="84" width="80" height="6" rx="3" fill="#8994A5" fill-opacity="0.6"/>
+  <rect x="42" y="98" width="72" height="6" rx="3" fill="#8994A5" fill-opacity="0.6"/>
+  <rect x="42" y="112" width="76" height="6" rx="3" fill="#8994A5" fill-opacity="0.6"/>
+  <rect x="42" y="148" width="80" height="24" rx="6" fill="#438DFF" fill-opacity="0.2"/>
+  <text x="55" y="164" fill="#8FC0FF" font-family="monospace" font-size="10">RAG INDEX</text>
+
+  <!-- Arrow 1 -->
+  <path d="M144 120H178" stroke="#54D6E8" stroke-width="1.8"/>
+  <path d="M172 115L179 120L172 125" stroke="#54D6E8" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Center Node: LLM Generation -->
+  <rect x="184" y="44" width="112" height="152" rx="10" fill="#142540" stroke="#54D6E8" stroke-opacity="0.5"/>
+  <text x="205" y="72" fill="#F4F5F7" font-family="monospace" font-size="11" font-weight="bold">LLM APIs</text>
+  <rect x="200" y="90" width="80" height="24" rx="6" fill="#0D1728" stroke="#438DFF" stroke-opacity="0.4"/>
+  <text x="223" y="106" fill="#54D6E8" font-family="monospace" font-size="10">GPT-4</text>
+  <rect x="200" y="124" width="80" height="24" rx="6" fill="#0D1728" stroke="#438DFF" stroke-opacity="0.4"/>
+  <text x="218" y="140" fill="#8FC0FF" font-family="monospace" font-size="10">Sonnet</text>
+
+  <!-- Arrow 2 -->
+  <path d="M302 120H336" stroke="#54D6E8" stroke-width="1.8"/>
+  <path d="M330 115L337 120L330 125" stroke="#54D6E8" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Right Node: BERTScore Evaluation -->
+  <rect x="342" y="44" width="112" height="152" rx="10" fill="#101D32" stroke="#438DFF" stroke-opacity="0.4"/>
+  <text x="364" y="72" fill="#54D6E8" font-family="monospace" font-size="11" font-weight="bold">BERTScore</text>
+  <rect x="358" y="92" width="80" height="10" rx="5" fill="#1A2E4F"/>
+  <rect x="358" y="92" width="68" height="10" rx="5" fill="#54D6E8"/>
+  <rect x="358" y="114" width="80" height="10" rx="5" fill="#1A2E4F"/>
+  <rect x="358" y="114" width="58" height="10" rx="5" fill="#438DFF"/>
+  <text x="358" y="152" fill="#F4F5F7" font-family="monospace" font-size="10">+12% Prec</text>
+  <text x="358" y="168" fill="#8FC0FF" font-family="monospace" font-size="10">+7% F1</text>
+</svg>
