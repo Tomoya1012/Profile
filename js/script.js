@@ -1,7 +1,7 @@
 /**
  * Allen Paul Cabic — Portfolio Interactions
- * Handles mobile menu, active nav highlighting, subtle 3D pointer perspective,
- * clipboard email copy, and dynamic footer year.
+ * Handles mobile menu, active nav highlighting, subtle architectural canvas
+ * background motion, scroll reveal, 3D pointer perspective, and email copy.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -58,7 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   window.addEventListener("scroll", updateActiveNav, { passive: true });
 
-  // 4. Subtle 3D Mouse Perspective (Desktop & Motion-Safe Only)
+  // 4. Subtle Scroll Reveal
+  const revealElements = document.querySelectorAll("[data-reveal]");
+  if (!prefersReducedMotion && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealElements.forEach((el) => observer.observe(el));
+  } else {
+    revealElements.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  // 5. Subtle 3D Mouse Perspective (Desktop & Motion-Safe Only)
   if (!prefersReducedMotion && !isTouchDevice) {
     const heroStage = document.getElementById("hero-3d-stage");
     if (heroStage) {
@@ -93,7 +112,104 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Copy Email Interaction
+  // 6. Restraint-First Architectural Background Canvas
+  // Draws slow-moving orthogonal signal pulses along a faint drafting lattice
+  const canvas = document.getElementById("bg-schematic-canvas");
+  if (canvas && !prefersReducedMotion) {
+    const ctx = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    let pulses = [];
+    const GRID_STEP = 112;
+
+    const resizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const createPulse = () => {
+      const horizontal = Math.random() > 0.5;
+      const cols = Math.max(1, Math.floor(width / GRID_STEP));
+      const rows = Math.max(1, Math.floor(height / GRID_STEP));
+      return {
+        horizontal,
+        x: horizontal ? -120 : Math.floor(Math.random() * cols) * GRID_STEP,
+        y: horizontal ? Math.floor(Math.random() * rows) * GRID_STEP : -120,
+        length: 70 + Math.random() * 80,
+        speed: 0.35 + Math.random() * 0.45,
+        alpha: 0.08 + Math.random() * 0.08,
+        cyan: Math.random() > 0.45
+      };
+    };
+
+    resizeCanvas();
+    const pulseCount = width < 768 ? 5 : 9;
+    pulses = Array.from({ length: pulseCount }, () => {
+      const p = createPulse();
+      if (p.horizontal) p.x = Math.random() * width;
+      else p.y = Math.random() * height;
+      return p;
+    });
+
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+
+    const renderBackground = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < pulses.length; i++) {
+        const p = pulses[i];
+        const color = p.cyan ? `84, 214, 232` : `67, 141, 255`;
+
+        if (p.horizontal) {
+          const grad = ctx.createLinearGradient(p.x, p.y, p.x + p.length, p.y);
+          grad.addColorStop(0, `rgba(${color}, 0)`);
+          grad.addColorStop(0.5, `rgba(${color}, ${p.alpha})`);
+          grad.addColorStop(1, `rgba(${color}, 0)`);
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p.x + p.length, p.y);
+          ctx.stroke();
+
+          ctx.fillStyle = `rgba(${color}, ${p.alpha * 1.8})`;
+          ctx.fillRect(p.x + p.length * 0.5 - 1.5, p.y - 1.5, 3, 3);
+
+          p.x += p.speed;
+          if (p.x > width + 140) pulses[i] = createPulse();
+        } else {
+          const grad = ctx.createLinearGradient(p.x, p.y, p.x, p.y + p.length);
+          grad.addColorStop(0, `rgba(${color}, 0)`);
+          grad.addColorStop(0.5, `rgba(${color}, ${p.alpha})`);
+          grad.addColorStop(1, `rgba(${color}, 0)`);
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p.x, p.y + p.length);
+          ctx.stroke();
+
+          ctx.fillStyle = `rgba(${color}, ${p.alpha * 1.8})`;
+          ctx.fillRect(p.x - 1.5, p.y + p.length * 0.5 - 1.5, 3, 3);
+
+          p.y += p.speed;
+          if (p.y > height + 140) pulses[i] = createPulse();
+        }
+      }
+
+      requestAnimationFrame(renderBackground);
+    };
+
+    requestAnimationFrame(renderBackground);
+  }
+
+  // 7. Copy Email Interaction
   const copyBtn = document.getElementById("copy-email-btn");
   const copyLabel = document.getElementById("copy-btn-label");
   const copyStatus = document.getElementById("copy-status");
@@ -112,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (copyStatus) copyStatus.textContent = "";
         }, 2500);
       } catch {
-        // Fallback if clipboard API is restricted
         window.location.href = `mailto:${email}`;
       }
     });
