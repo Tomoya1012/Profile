@@ -1,24 +1,24 @@
 /* ==========================================================================
    Allen Paul Cabic — Personal Portfolio Stylesheet
-   Editorial Developer Aesthetic with Architectural Motion & 3D Depth
+   Real Photographic Backdrop & Project Photography with Frosted Glass Surfaces
    ========================================================================== */
 
 :root {
   /* Core Palette */
-  --bg-dark: #0B1220;
-  --bg-navy: #101D32;
-  --bg-elevated: #15243D;
+  --bg-dark: #080E1A;
+  --bg-navy: #0F1B2E;
+  --bg-elevated: #162640;
   --text-primary: #F4F5F7;
-  --text-secondary: #B7C1D1;
-  --text-muted: #8994A5;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
   --accent-blue: #438DFF;
   --accent-cyan: #54D6E8;
 
   /* Borders & Depth */
-  --border-subtle: rgba(148, 163, 184, 0.15);
-  --border-highlight: rgba(84, 214, 232, 0.34);
-  --shadow-card: 0 20px 44px -18px rgba(3, 8, 18, 0.8);
-  --shadow-3d: 0 30px 64px -20px rgba(2, 6, 15, 0.9);
+  --border-subtle: rgba(148, 163, 184, 0.22);
+  --border-highlight: rgba(84, 214, 232, 0.42);
+  --shadow-card: 0 20px 44px -18px rgba(2, 6, 14, 0.9);
+  --shadow-3d: 0 30px 64px -20px rgba(2, 6, 14, 0.95);
 
   /* Typography */
   --font-display: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -44,6 +44,7 @@
 }
 
 html {
+  background-color: var(--bg-dark);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-height) + 20px);
 }
@@ -51,7 +52,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background-color: var(--bg-dark);
+  background: transparent;
   color: var(--text-primary);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -59,11 +60,17 @@ body {
   position: relative;
 }
 
+.site-header,
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
 img,
 svg {
   display: block;
   max-width: 100%;
-  height: auto;
 }
 
 a {
@@ -90,121 +97,32 @@ dt {
 }
 
 /* ==========================================================================
-   Subtle Architectural Background Animations
+   Real Full-Viewport Photographic Background
    ========================================================================== */
-.bg-atmosphere {
+.bg-photo-wrapper {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background-color: var(--bg-dark);
+  background-color: #080E1A;
 }
 
-/* Slow-drifting hairline drafting grid */
-.bg-grid-layer {
-  position: absolute;
-  inset: -64px;
-  background-image:
-    linear-gradient(to right, rgba(137, 148, 165, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(137, 148, 165, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 35%, transparent 100%);
-  animation: gridDrift 36s linear infinite;
-}
-
-@keyframes gridDrift {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(56px, 56px, 0);
-  }
-}
-
-/* Muted atmospheric light washes that breathe slowly */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(95px);
-  opacity: 0.45;
-  will-change: transform;
-}
-
-.bg-orb-primary {
-  width: 540px;
-  height: 540px;
-  top: -120px;
-  right: 4%;
-  background: radial-gradient(circle, rgba(67, 141, 255, 0.16), transparent 70%);
-  animation: orbFloatA 22s ease-in-out infinite alternate;
-}
-
-.bg-orb-secondary {
-  width: 480px;
-  height: 480px;
-  bottom: 8%;
-  left: -80px;
-  background: radial-gradient(circle, rgba(84, 214, 232, 0.1), transparent 72%);
-  animation: orbFloatB 28s ease-in-out infinite alternate;
-}
-
-@keyframes orbFloatA {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(-45px, 60px, 0) scale(1.08);
-  }
-}
-
-@keyframes orbFloatB {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(60px, -40px, 0) scale(1.06);
-  }
-}
-
-/* Subtle architectural light sweep */
-.bg-scanline {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(84, 214, 232, 0.025) 50%,
-    transparent 100%
-  );
-  height: 280px;
-  animation: scanSweep 18s ease-in-out infinite;
-}
-
-@keyframes scanSweep {
-  0% {
-    transform: translateY(-30vh);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(115vh);
-    opacity: 0;
-  }
-}
-
-#bg-schematic-canvas {
-  position: absolute;
-  inset: 0;
+.bg-photo-img {
   width: 100%;
   height: 100%;
-  opacity: 0.75;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.48;
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.02);
+}
+
+/* Subtle uniform dark tint so the real photograph stays clearly visible while keeping text crisp */
+.bg-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(8, 14, 26, 0.64);
 }
 
 /* Accessibility Helpers */
@@ -255,6 +173,14 @@ dt {
   position: relative;
 }
 
+.glass-surface {
+  background: rgba(11, 19, 34, 0.74);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
 /* Subtle Scroll Reveal Choreography */
 [data-reveal] {
   opacity: 0;
@@ -275,9 +201,9 @@ dt {
   top: 0;
   z-index: 500;
   height: var(--nav-height);
-  background: rgba(11, 18, 32, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(8, 14, 26, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -306,7 +232,7 @@ dt {
   width: 10px;
   height: 10px;
   border-radius: 2px;
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  background: var(--accent-cyan);
   transform: rotate(45deg);
 }
 
@@ -328,18 +254,18 @@ dt {
 .nav-link:hover,
 .nav-link.active {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nav-link.nav-cta {
   margin-left: 8px;
   color: var(--accent-cyan);
-  border: 1px solid rgba(84, 214, 232, 0.32);
-  background: rgba(84, 214, 232, 0.05);
+  border: 1px solid rgba(84, 214, 232, 0.38);
+  background: rgba(84, 214, 232, 0.08);
 }
 
 .nav-link.nav-cta:hover {
-  background: rgba(84, 214, 232, 0.14);
+  background: rgba(84, 214, 232, 0.18);
 }
 
 .nav-toggle {
@@ -365,7 +291,7 @@ dt {
 }
 
 /* ==========================================================================
-   Hero Section & 3D Layered Stage
+   Hero Section & 3D Layered Photo Stage
    ========================================================================== */
 .hero-section {
   padding: 76px 0 96px;
@@ -385,7 +311,8 @@ dt {
   gap: 9px;
   padding: 6px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(16, 29, 50, 0.85);
+  background: rgba(11, 19, 34, 0.82);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -408,6 +335,7 @@ dt {
   letter-spacing: -0.035em;
   color: var(--text-primary);
   margin-bottom: 14px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.65);
 }
 
 .hero-subtitle {
@@ -458,7 +386,8 @@ dt {
 }
 
 .btn-secondary {
-  background: rgba(16, 29, 50, 0.85);
+  background: rgba(11, 19, 34, 0.82);
+  backdrop-filter: blur(10px);
   color: var(--text-primary);
   border: 1px solid var(--border-subtle);
 }
@@ -474,8 +403,11 @@ dt {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-subtle);
+  padding: 18px 20px;
+  border-radius: var(--radius-sm);
+  background: rgba(11, 19, 34, 0.72);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
   max-width: 480px;
 }
 
@@ -494,7 +426,7 @@ dt {
   color: var(--text-primary);
 }
 
-/* 3D Workstation Illustration Stage */
+/* 3D Workstation Photo Stage */
 .hero-stage-wrapper {
   perspective: 1100px;
   display: flex;
@@ -509,39 +441,40 @@ dt {
   transition: transform 0.18s ease-out;
 }
 
-.ambient-glow {
-  position: absolute;
-  inset: 14%;
-  background: radial-gradient(circle, rgba(67, 141, 255, 0.2), rgba(84, 214, 232, 0.05) 58%, transparent 74%);
-  filter: blur(26px);
-  z-index: 0;
-  pointer-events: none;
-}
-
 .layer-base {
   position: relative;
   z-index: 1;
   transform: translateZ(0px);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  background: linear-gradient(160deg, rgba(16, 29, 50, 0.92), rgba(11, 18, 32, 0.96));
+  border: 1px solid var(--border-highlight);
+  background: #0B1322;
   box-shadow: var(--shadow-3d);
   overflow: hidden;
 }
 
-.hero-illustration {
+.hero-photo {
   width: 100%;
-  height: auto;
+  height: 390px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-photo-tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 26, 0.16);
+  pointer-events: none;
 }
 
 /* Elevated 3D Floating Panels */
 .float-panel {
   position: absolute;
   z-index: 2;
-  background: rgba(16, 29, 50, 0.95);
+  background: rgba(11, 19, 34, 0.92);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-highlight);
   border-radius: var(--radius-md);
-  box-shadow: 0 20px 35px -12px rgba(2, 6, 15, 0.85);
+  box-shadow: 0 20px 35px -12px rgba(2, 6, 15, 0.9);
   pointer-events: none;
 }
 
@@ -612,7 +545,7 @@ dt {
   font-size: 0.75rem;
   font-weight: 700;
   color: #061021;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  background: var(--accent-cyan);
 }
 
 .panel-label {
@@ -634,13 +567,14 @@ dt {
   z-index: 3;
   padding: 6px 12px;
   border-radius: var(--radius-sm);
-  background: var(--bg-elevated);
-  border: 1px solid rgba(67, 141, 255, 0.38);
+  background: rgba(15, 27, 46, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(67, 141, 255, 0.45);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--text-primary);
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.75);
   pointer-events: none;
 }
 
@@ -675,7 +609,7 @@ dt {
    Section Headers & Shared Surfaces
    ========================================================================== */
 .section-header {
-  margin-bottom: 48px;
+  margin-bottom: 44px;
   max-width: 660px;
 }
 
@@ -710,7 +644,9 @@ dt {
 }
 
 .depth-card {
-  background: linear-gradient(165deg, rgba(21, 36, 61, 0.76), rgba(16, 29, 50, 0.94));
+  background: rgba(11, 19, 34, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
@@ -718,7 +654,7 @@ dt {
 }
 
 .depth-card:hover {
-  border-color: rgba(84, 214, 232, 0.34);
+  border-color: rgba(84, 214, 232, 0.42);
 }
 
 /* ==========================================================================
@@ -727,11 +663,12 @@ dt {
 .about-layout {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  gap: 52px;
+  gap: 36px;
   align-items: start;
 }
 
 .about-narrative {
+  padding: 28px 30px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -754,7 +691,8 @@ dt {
 .editorial-card {
   position: relative;
   padding: 20px 22px;
-  background: rgba(16, 29, 50, 0.58);
+  background: rgba(11, 19, 34, 0.78);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-left: 3px solid var(--accent-blue);
   border-radius: var(--radius-sm);
@@ -764,7 +702,7 @@ dt {
 .editorial-card:hover {
   transform: translateX(4px);
   border-left-color: var(--accent-cyan);
-  background: rgba(21, 36, 61, 0.74);
+  background: rgba(15, 27, 46, 0.88);
 }
 
 .card-index {
@@ -804,9 +742,9 @@ dt {
   font-size: 0.76rem;
   padding: 3px 9px;
   border-radius: 4px;
-  background: rgba(67, 141, 255, 0.14);
+  background: rgba(67, 141, 255, 0.18);
   color: #8FC0FF;
-  border: 1px solid rgba(67, 141, 255, 0.25);
+  border: 1px solid rgba(67, 141, 255, 0.32);
 }
 
 .interest-list {
@@ -834,10 +772,9 @@ dt {
 }
 
 /* ==========================================================================
-   Technical Skills Section (Structured Directory Matrix — Less Template-y)
+   Technical Skills Section (Structured Directory Matrix)
    ========================================================================== */
 .skills-section {
-  background: rgba(16, 29, 50, 0.22);
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -845,7 +782,7 @@ dt {
 .skills-directory {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border-subtle);
+  padding: 6px 24px;
 }
 
 .skill-row {
@@ -853,13 +790,17 @@ dt {
   grid-template-columns: 290px 1fr;
   gap: 24px;
   align-items: start;
-  padding: 24px 8px;
+  padding: 24px 4px;
   border-bottom: 1px solid var(--border-subtle);
   transition: background-color 0.2s ease;
 }
 
+.skill-row:last-child {
+  border-bottom: 0;
+}
+
 .skill-row:hover {
-  background: rgba(21, 36, 61, 0.26);
+  background: rgba(22, 38, 64, 0.42);
 }
 
 .skill-row-label {
@@ -875,8 +816,8 @@ dt {
   height: 30px;
   padding: 0 8px;
   border-radius: 5px;
-  background: rgba(67, 141, 255, 0.12);
-  border: 1px solid rgba(67, 141, 255, 0.26);
+  background: rgba(67, 141, 255, 0.16);
+  border: 1px solid rgba(67, 141, 255, 0.34);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
@@ -901,22 +842,22 @@ dt {
   font-size: 0.86rem;
   font-weight: 500;
   color: var(--text-secondary);
-  background: rgba(11, 18, 32, 0.78);
+  background: rgba(8, 14, 26, 0.82);
   border: 1px solid var(--border-subtle);
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .skill-tag:hover {
   color: var(--text-primary);
-  border-color: rgba(148, 163, 184, 0.38);
+  border-color: rgba(148, 163, 184, 0.45);
   transform: translateY(-1px);
 }
 
 .skill-tag.priority {
   color: var(--text-primary);
   font-weight: 600;
-  background: rgba(67, 141, 255, 0.14);
-  border-color: rgba(67, 141, 255, 0.38);
+  background: rgba(67, 141, 255, 0.2);
+  border-color: rgba(67, 141, 255, 0.45);
 }
 
 .skill-tag.priority:hover {
@@ -924,7 +865,7 @@ dt {
 }
 
 /* ==========================================================================
-   Projects Section
+   Projects Section (Real Photography Cards)
    ========================================================================== */
 .project-featured {
   display: grid;
@@ -941,7 +882,28 @@ dt {
   border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid var(--border-subtle);
-  background: #09101D;
+  background: #080E1A;
+}
+
+.project-featured-visual .project-photo {
+  width: 100%;
+  height: 310px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.45s var(--ease-out);
+}
+
+.project-card-visual .project-photo {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.45s var(--ease-out);
+}
+
+.project-featured:hover .project-photo,
+.project-card:hover .project-photo {
+  transform: scale(1.03);
 }
 
 .project-meta-top {
@@ -959,15 +921,15 @@ dt {
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 4px;
-  background: rgba(84, 214, 232, 0.14);
+  background: rgba(84, 214, 232, 0.16);
   color: var(--accent-cyan);
-  border: 1px solid rgba(84, 214, 232, 0.28);
+  border: 1px solid rgba(84, 214, 232, 0.34);
 }
 
 .project-badge.secondary {
-  background: rgba(67, 141, 255, 0.14);
+  background: rgba(67, 141, 255, 0.18);
   color: #8FC0FF;
-  border-color: rgba(67, 141, 255, 0.28);
+  border-color: rgba(67, 141, 255, 0.34);
 }
 
 .project-period {
@@ -1036,7 +998,7 @@ dt {
   font-size: 0.76rem;
   padding: 4px 9px;
   border-radius: 4px;
-  background: rgba(11, 18, 32, 0.85);
+  background: rgba(8, 14, 26, 0.85);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
 }
@@ -1073,7 +1035,8 @@ dt {
 .academic-archive {
   padding: 28px 32px;
   border-radius: var(--radius-md);
-  background: rgba(16, 29, 50, 0.45);
+  background: rgba(11, 19, 34, 0.78);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
 }
 
@@ -1103,12 +1066,12 @@ dt {
 .archive-item {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  background: rgba(11, 18, 32, 0.65);
+  background: rgba(8, 14, 26, 0.76);
   transition: border-color 0.2s ease;
 }
 
 .archive-item[open] {
-  border-color: rgba(67, 141, 255, 0.35);
+  border-color: rgba(67, 141, 255, 0.42);
 }
 
 .archive-summary {
@@ -1191,7 +1154,7 @@ dt {
   top: 8px;
   bottom: 8px;
   width: 2px;
-  background: linear-gradient(180deg, var(--accent-cyan), rgba(67, 141, 255, 0.2));
+  background: var(--accent-blue);
 }
 
 .timeline-item {
@@ -1206,13 +1169,14 @@ dt {
   height: 14px;
   border-radius: 50%;
   background: var(--bg-dark);
-  border: 2px solid var(--accent-blue);
+  border: 2px solid var(--accent-cyan);
 }
 
 .timeline-card {
   padding: 22px 24px;
   border-radius: var(--radius-md);
-  background: rgba(16, 29, 50, 0.65);
+  background: rgba(11, 19, 34, 0.8);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
 }
 
@@ -1262,11 +1226,12 @@ dt {
   background: var(--accent-blue);
 }
 
-/* Education & Certifications Panel (Clean Editorial Border Layout) */
+/* Education & Certifications Panel */
 .education-panel {
   padding: 28px;
   border-radius: var(--radius-md);
-  background: rgba(16, 29, 50, 0.55);
+  background: rgba(11, 19, 34, 0.8);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
 }
 
@@ -1313,7 +1278,7 @@ dt {
   font-size: 0.76rem;
   font-weight: 700;
   color: #061021;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  background: var(--accent-cyan);
 }
 
 .grad-date {
@@ -1348,7 +1313,7 @@ dt {
   flex-direction: column;
   gap: 2px;
   padding-bottom: 11px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
 }
 
 .cert-list li:last-child {
@@ -1378,13 +1343,14 @@ dt {
 .contact-box {
   padding: 42px;
   border-radius: var(--radius-md);
-  background: linear-gradient(145deg, rgba(16, 29, 50, 0.88), rgba(11, 18, 32, 0.96));
+  background: rgba(11, 19, 34, 0.84);
+  backdrop-filter: blur(12px);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  border: 1px solid rgba(84, 214, 232, 0.25);
+  border: 1px solid rgba(84, 214, 232, 0.34);
 }
 
 .contact-text {
@@ -1425,7 +1391,8 @@ dt {
 .site-footer {
   border-top: 1px solid var(--border-subtle);
   padding: 36px 0;
-  background: #080E19;
+  background: rgba(8, 14, 26, 0.88);
+  backdrop-filter: blur(12px);
 }
 
 .footer-inner {
@@ -1495,7 +1462,7 @@ dt {
     align-items: stretch;
     gap: 4px;
     padding: 16px 24px 24px;
-    background: rgba(11, 18, 32, 0.97);
+    background: rgba(8, 14, 26, 0.96);
     border-bottom: 1px solid var(--border-subtle);
     transform: translateY(-120%);
     opacity: 0;
@@ -1525,7 +1492,10 @@ dt {
     padding: 20px 4px;
   }
 
-  /* Prevent floating 3D chips from clipping on narrow mobile screens */
+  .hero-photo {
+    height: 300px;
+  }
+
   .panel-service {
     right: 8px;
     top: -12px;
@@ -1579,27 +1549,5 @@ dt {
   .project-card,
   .academic-archive {
     padding: 20px;
-  }
-}
-
-/* ==========================================================================
-   Reduced Motion Preference
-   ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
